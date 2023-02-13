@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGPA Forecasting</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='username.css') }}">    <script>
+    function showButton() {
+      var button = document.getElementById("myButton");
+      button.style.opacity = 0;
+      button.style.display = "block";
+  
+      var fadeIn = setInterval(function() {
+        if (button.style.opacity >= 1) {
+          clearInterval(fadeIn);
+        } else {
+          button.style.opacity = parseFloat(button.style.opacity) + 0.1;
+        }
+      }, 30);
+    }
+    setTimeout(showButton, 3000);
+  
+    function navigateToForm() {
+      var textInput = document.querySelector(".txtBox").value;
+      if (!textInput) {
+        alert("please enter your name!");
+        return;
+      }
+      window.location.href = "{{ url_for('form') }}";
+    }
+
+      
+      </script>
+<style>
+.video-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+      background-color: #3A3053; /* added background color */
+
+    }
+    video {
+      min-width: 100%;
+      min-height: 100%;
+      opacity: 0.5;
+    }
+</style>
+</head>
+<body>
+    <div class="banner">
+        <video autoplay loop muted plays-inline>
+          <source src="{{ url_for('static', filename='squigglyvid.mp4') }}" type="video/mp4">        </video>
+    
+            <h6>SGPA FORECASTING</h6>
+            <div id="body-div">
+                <div id="questionnaire-div">
+                    <form action="" id="predict">
+                        
+                        <!-- Question 0 -->
+                        <div id="question0" class="question-div">
+                            <h2 id="question0" class="question" style="font-family:'Andale Mono', monospace;" style="font-weight: 100;">What is your Name?</h2>
+                            <div id="answer0">
+                              <input type="text" class="txtBox" autofocus form="predict" placeholder="For Example: John Smith" style="font-family: Century Gothic;">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <button id="myButton" style="display:none" onclick="navigateToForm()">Next</button>
+            
+    </div>
+
+    
+
+
+
+</body>
+</html>

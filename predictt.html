@@ -1,0 +1,90 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGPA Forecasting</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylish.css') }}">
+
+
+    <script>
+      
+        function showButton() {
+          var button = document.getElementById("myButton");
+          button.style.opacity = 0;
+          button.style.display = "block";
+      
+          var fadeIn = setInterval(function() {
+            if (button.style.opacity >= 1) {
+              clearInterval(fadeIn);
+            } else {
+              button.style.opacity = parseFloat(button.style.opacity) + 0.1;
+            }
+          }, 30);
+        }
+        setTimeout(showButton, 3000);
+
+        window.addEventListener("load", function() {
+            document.querySelector(".fade-in").classList.add("loaded");
+          });
+    
+      </script>
+      
+<style>
+.fade-in {
+  opacity: 0;
+  transition: opacity 7s;
+}
+
+.fade-in.loaded {
+  opacity: 1;
+}
+
+button{
+    width: 200px;
+    font-family: "Inter", sans-serif;
+    padding: 15px;
+    margin: 20px 5px;
+    text-align: center;
+    border-radius: 25px;
+    color: black;
+    border: 2px;
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: 600;
+}
+button:hover{
+    background: #61868E;
+    transition: 0.5s;
+}
+button:hover{
+    color: white;
+}
+
+
+
+
+
+
+</style>
+
+
+
+</head>
+<body id="body-loading">
+    <div style="position: absolute; top: 40%; left: 47%;">
+      <img src="{{ url_for('static', filename='undraw_education_f8ru.svg') }}" alt="Splash Icon" id="splash-image">
+    </div>
+
+    <button id="myButton" style="display:none" onclick="navigateToForm()">{{prediction_text}}</button>
+    <button type="button" class="fade-in" style="position: absolute; bottom: 10%; left: 45.5%;" onclick="window.location.href = '{{ url_for('name') }}';">Predict Again</button>
+
+
+
+
+
+
+
+</body>
+
+</html>

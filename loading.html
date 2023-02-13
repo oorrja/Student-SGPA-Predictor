@@ -1,0 +1,42 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGPA Forecasting</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylish.css') }}">
+
+    <script>
+        function showButton() {
+          var button = document.getElementById("myButton");
+          button.style.opacity = 0;
+          button.style.display = "block";
+      
+          var fadeIn = setInterval(function() {
+            if (button.style.opacity >= 1) {
+              clearInterval(fadeIn);
+            } else {
+              button.style.opacity = parseFloat(button.style.opacity) + 0.1;
+            }
+          }, 30);
+        }
+        setTimeout(showButton, 3000);
+      
+        function navigateToForm() {
+          window.location.href = "{{ url_for('name') }}";
+        }
+      </script>
+      
+      
+
+
+</head>
+<body id="body-loading">
+    <div style="position: absolute; top: 40%; left: 47%;">
+      <img src="{{ url_for('static', filename='undraw_education_f8ru.svg') }}" alt="Splash Icon" id="splash-image">
+    </div>
+
+    <button id="myButton" style="display:none" onclick="navigateToForm()">Go to Form</button>
+</body>
+
+</html>

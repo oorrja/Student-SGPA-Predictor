@@ -1,0 +1,169 @@
+body {
+    background-color: #3A3053;
+    background-image: url("image 2.png");
+    
+    animation: bgImage 4s 0 1;
+    color: white;
+    align-items: center;
+    text-align: center;
+    align-self: center;
+    align-content: center;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+    width:100%;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
+
+header{
+    font-size: xx-large;
+    text-align: center;
+    font-weight: bolder;
+    margin-top: 2%;
+}
+
+#body-div{
+    position: absolute; 
+    align-items: center;
+    text-align: center;
+    align-self: center;
+    align-content: center;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    /* top: calc(50% - 3%); */
+    width: 70%;
+    height: 40%;
+}
+
+#questionnaire-div {
+    align-items: center;
+    text-align: center;
+    align-self: center;
+    align-content: center;
+    height: 90%;
+}
+
+.question-div{
+    padding-top: 10px;
+    padding-bottom: 40px;
+}
+
+.question {
+    text-align: center;
+    padding-bottom: 40px;
+}
+
+body-loading {
+    background-color: #3A3053;
+    background-image: url("image 2.png");
+    animation: bgImage 4s 0 1;
+    color: white;
+}
+
+#splash-image {
+    width: 20%;
+    display: block;
+    animation: splash 1s infinite;
+    animation-delay: 0ms;
+}
+
+/* Animations */
+@keyframes splash {
+    0% {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
+}
+
+input.txtBox{
+    box-sizing: border-box;
+    width: 70%;
+    min-width: 50%;
+    height: 60px;
+    border-radius: 55px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.05);
+    font-style: normal;
+    color: white;
+    align-items: center;
+    text-align: center;
+    size: 15px;
+    font-size: larger;
+    transition: 200ms;
+}
+input.txtBox:hover{
+    box-sizing: border-box;
+    width: 70%;
+    min-width: 50%;
+    height: 60px;
+    border-radius: 55px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.1);
+    font-style: normal;
+    color: white;
+    align-items: center;
+    text-align: center;
+    size: 15px;
+    font-size: larger;
+}
+
+#txtBox {
+    width: 80%;
+    height: 100px;
+
+    /* 
+    box-sizing: border-box;
+    position: absolute;
+    width: 895px;
+    height: 99px;
+    left: calc(50% - 895px/2);  
+    top: calc(50% - 99px/2 + 20px);
+
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 55px;
+ */
+}
+
+#btn{
+    width: 300px;
+    height: 74px;
+    background: #ffffff05;
+    border: 1px solid #ffffff40;
+    border-radius: 55px;
+}
+
+#btn:hover{
+    width: 300px;
+    height: 74px;
+    background: #ffffff15;
+    border: 1px solid #ffffff40;
+    border-radius: 55px;
+}
+
+#myButton {
+    position: fixed;
+    bottom: 27%;
+    left: 52%;
+    transform: translate(-50%, 0);
+
+
+    width: 200px;
+    font-family: "Inter", sans-serif;
+    padding: 15px;
+    margin: 20px 5px;
+    text-align: center;
+    border-radius: 30px;
+    color: black;
+    border: 2px;
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  #myButton:hover{
+    background: #61868E;
+    transition: 1s;
+}
+#myButton:hover{
+    color: white;
+}

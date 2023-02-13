@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html >
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<head>
+  <meta charset="UTF-8">
+  <title>SGPA Forecasting</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<style>
+
+
+.radio-container {
+  font-size: 24px;
+  padding: 8px;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+label {
+  position: relative;
+  cursor: pointer;
+  font-weight: bold;
+  padding-right: 32px;
+  font-size: 16px;
+ 
+  font-family: "Century Gothic";
+}
+
+label:nth-last-child(1) {
+  padding-right: 0;
+}
+
+label::before {
+  content: "";
+  border: 2px solid whitesmoke;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: -8px 20px;
+  margin-left: 0;
+  border-radius: 50%;
+  font-size: small;
+  color: rgb(38, 7, 80);
+}
+
+label::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: transparent;
+  left: 7px;
+  top: 12px;
+  margin: -8px 20px;
+  margin-left: 0;
+  border-radius: 50%;
+  font-size: small;
+  color:beige;
+
+  transition: all 0.4s;
+}
+
+input[type="radio"]:checked + label::after {
+  background: whitesmoke;
+}
+
+
+
+
+    .video-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+      background-color: #3A3053; /* added background color */
+
+    }
+    video {
+      min-width: 100%;
+      min-height: 100%;
+      opacity: 0.2;
+    }
+    form {
+      position: absolute;
+      top: 210%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: transparent;
+      padding: 20px;
+      z-index: -1;
+    }
+
+
+    h1{
+    font-family: "Inter", sans-serif;
+    font-size: 90px;
+    color: white;
+    font-weight: 800;
+    transition: 0.5s;
+    text-align: center;
+}
+
+h1:hover{
+    -webkit-text-stroke: 2px #fff;
+    color: transparent;
+}
+input[type="text"] {
+  width: 700px;
+  height: 30px;
+  font-size: 17px;
+  padding: 10px;
+  border-radius: 25px;
+  border: 1px solid white;
+  margin-bottom: 20px;
+  transition: all 0.3s ease-in-out;
+  background: rgba(255, 255, 255, 0.1);
+    align-items: center;
+    text-align: center;
+    size: 15px;
+    font-size: larger;
+    font-family:"Century Gothic";
+color: #fff;
+}
+
+input[type="text"]:hover {
+  border: 1px solid white;
+  box-shadow:
+   2px 2px 5px white;
+   color: white;
+
+}
+
+button{
+    display: block;
+    margin: 20px auto;
+    width: 200px;
+    font-family: "Inter", sans-serif;
+    padding: 15px;
+    text-align: center;
+    border-radius: 25px;
+    color: black;
+    border: 2px;
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+
+button:hover{
+    background: #61868E;
+    transition: 0.5s;
+}
+button:hover{
+    color: white;
+}
+
+h3{
+    font-family:'Andale Mono', monospace;   
+}
+
+
+
+
+
+  </style>
+
+</head>
+
+<body>
+ <div class="video-bg">
+    <video autoplay loop muted>
+        <source src="{{ url_for('static', filename='squigglyvid.mp4') }}" type="video/mp4"> 
+      </video>
+    </div>
+
+	<h1>SGPA FORECASTING</h1>
+
+     <!-- Main Input For Receiving Query to our ML -->
+    <form action="{{ url_for('predict')}}"method="post">
+
+        <h3 style="color: white; text-align: center;">What is the Sum of your Internal Marks? <br></h3>
+       
+    <input type="text" name="Sum of Internal Marks "  placeholder="Sum of Internal Marks this Semester " required="required" /> <br>
+ 
+    <h3 style="color: white; text-align: center;">What is your 10th Percentage? <br></h3>
+
+
+    <input type="text" name="10th Percentage" placeholder="10th Percentage" required="required" /><br>
+
+    <h3 style="color: white; text-align: center;">What is your 12th Percentage? <br></h3>
+
+		<input type="text" name="12th Percentage" placeholder="12th Percentage" required="required" /><br>
+
+
+        <h3 style="color: white; text-align: center;">What is Total No. of Times you have been Debarred from an Exam? <br></h3>
+
+		<input type="text" name="Total Times Debarred" placeholder="Total Times Debarred from Exam" required="required" /><br>
+
+
+        <h3 style="color: white; text-align: center;">What is your Specialization? <br></h3>
+        <center>
+        <div class="radio-container">
+    <input type="radio" id="CSE" name="Stream" value="0">
+    <label for="CSE">CSE</label>
+    <input type="radio" id="CSEAIML" name="Stream" value="1">
+    <label for="CSEAIML">CSEAIML</label>
+    <input type="radio" id="CSECS" name="Stream" value="2">
+    <label for="CSECS">CSECS</label>
+    <input type="radio" id="CSEITBC" name="Stream" value="3">
+    <label for="CSEITBC">CSEITBC</label>
+</div>
+</center>
+    <!-- <input type="text" name="Stream" placeholder="Stream" required="required" /><br> -->
+   
+    <h3 style="color: white; text-align: center;">What is the Total Number of the Subjects that you are Studying this Semester? <br></h3>
+
+
+    <input type="text" name="Total Subjects" placeholder="Total Subjects (In Number)" required="required" /><br>
+    <h3 style="color: white; text-align: center;">What is your Gender? <br></h3>
+<center>
+    <div class="radio-container">
+    <input type="radio" id="Male" name="Gender" value="1">
+    <label for="Male">Male</label>
+    <input type="radio" id="Female" name="Gender" value="0">
+    <label for="Female">Female</label>
+        </div></center>
+    <!-- <input type="text" name="Gender" placeholder="Gender" required="required" /><br> -->
+
+    <h3 style="color: white; text-align: center;">What is the Average Number of Hours you Study Per Week? <br></h3>
+
+
+    <input type="text" name="Study Hours" placeholder="Study Hours" required="required" /><br>
+
+
+    <!-- <input type="text" name="10th Board" placeholder="10th Board" required="required" /><br> -->
+    <h3 style="color: white; text-align: center;">What was your 10th Board Name? <br></h3>
+    <center>
+    <div class="radio-container">
+    <input type="radio" id="CBSE" name="10th Board" value="0">
+    <label for="CBSE">CBSE</label>
+    <input type="radio" id="ICSE" name="10th Board" value="1">
+    <label for="ICSE">ICSE</label>
+    <input type="radio" id="IB" name="10th Board" value="2">
+    <label for="IB">IB</label>
+    <input type="radio" id="State" name="10th Board" value="3">
+    <label for="State">State</label>
+    <input type="radio" id="Other" name="10th Board" value="4">
+    <label for="Other">Other</label>
+</div>
+</center>
+
+
+    <!-- <input type="text" name="12th Board" placeholder="12th Board" required="required" /><br> -->
+    <h3 style="color: white; text-align: center;">What was your 12th Board Name? <br></h3>
+    <center>
+    <div class="radio-container">
+    <input type="radio" id="CBSE2" name="12th Board" value="0">
+    <label for="CBSE2">CBSE</label>
+    <input type="radio" id="ICSE2" name="12th Board" value="1">
+    <label for="ICSE2">ICSE</label>
+    <input type="radio" id="IB2" name="12th Board" value="2">
+    <label for="IB2">IB</label>
+    <input type="radio" id="State2" name="12th Board" value="3">
+    <label for="State2">State</label>
+    <input type="radio" id="Other2" name="12th Board" value="4">
+    <label for="Other2">Other</label>
+        </div> </center>
+
+<h3 style="color: white; text-align: center;">What is the Average Number of Hours that you Spend in Co-Curricular Activities Per Week?  <br></h3>
+
+    <input type="text" name="Co-Curricular Activity"  placeholder="Co-Curricular Activity (In Hrs)" required="required" /><br>
+
+
+    <!-- <input type="text" name="Library Books" placeholder="Library Books" required="required" /><br> -->
+    <h3 style="color: white; text-align: center;">Do you Issue Books from the Library Often? <br></h3>
+    <center>
+    <div class="radio-container">
+    <input type="radio" id="Yes" name="Library Books" value="1">
+    <label for="Yes">Yes</label>
+    <input type="radio" id="No" name="Library Books" value="0">
+    <label for="No">No</label>
+</div> </center>
+
+
+<h3 style="color: white; text-align: center;">Do you do your Assignments on your Own? <br></h3>
+<center>
+<div class="radio-container">
+
+    <!-- <input type="text" name="Assignments" placeholder="Assignments" required="required" /><br> -->
+    <input type="radio" id="Yes1" name="Assignments" value="1">
+    <label for="Yes1">Yes</label>
+    <input type="radio" id="No1" name="Assignments" value="0">
+    <label for="No1">No</label>
+</div> </center>
+
+<h3 style="color: white; text-align: center;">Do you have a Mentor to Guide you? <br></h3>
+
+
+    <!-- <input type="text" name="Mentor" placeholder="Mentor" required="required" /><br> -->
+   <center><div class="radio-container">
+    <input type="radio" id="Yes2" name="Mentor" value="1">
+    <label for="Yes2">Yes</label>
+    <input type="radio" id="No2" name="Mentor" value="0">
+    <label for="No2">No</label>
+</div> </center> 
+<h3 style="color: white; text-align: center;">Where do you Live? <br></h3>
+
+    <!-- <input type="text" name="Place of Living" placeholder="Place of Living" required="required" /><br> -->
+    <center>
+    <div class="radio-container">
+    <input type="radio" id="Hostel" name="Place of Living" value="0">
+    <label for="Hostel">Hostel</label>
+    <input type="radio" id="PG" name="Place of Living" value="1">
+    <label for="PG">PG</label>
+    <input type="radio" id="House (with family)" name="Place of Living" value="2">
+    <label for="House (with family)">House (with family)</label>
+    <input type="radio" id="House (without family)" name="Place of Living" value="3">
+    <label for="House (without family)">House (without family)</label>
+</div> </center>
+
+
+<h3 style="color: white; text-align: center;">What is Distance from where you Currently Live to the College? <br></h3>
+
+    <!-- <input type="text" name="Distance from College" placeholder="Distance from College" required="required" /><br> -->
+    <center>
+    <div class="radio-container">
+    <input type="radio" id="0 - 1 KM" name="Distance from College" value="0">
+    <label for="0 - 1 KM">0 - 1 KM</label>
+    <input type="radio" id="1 - 5 KM" name="Distance from College" value="1">
+    <label for="1 - 5 KM">1 - 5 KM</label>
+    <input type="radio" id="5 - 15 KM" name="Distance from College" value="2">
+    <label for="5 - 15 KM">5 - 15 KM</label>
+    <input type="radio" id="Above 15 KM" name="Distance from College" value="3">
+    <label for="Above 15 KM">Above 15 KM</label>
+</div> </center>
+
+
+
+<h3 style="color: white; text-align: center;">What is the Mode of Transport that you Use?  <br></h3>
+
+    <!-- <input type="text" name="Mode of Transport " placeholder="Mode of Transport " required="required" /><br> -->
+    <center>
+    <div class="radio-container">
+    <input type="radio" id="Metro" name="Mode of Transport " value="0">
+    <label for="Metro">Metro</label>
+    <input type="radio" id="Cab/Auto/Bike" name="Mode of Transport " value="1">
+    <label for="Cab/Auto/Bike">Cab/Auto/Bike</label>
+    <input type="radio" id="Personal Vehicle" name="Mode of Transport " value="2">
+    <label for="Personal Vehicle">Personal Vehicle</label>
+</div>
+</center>
+
+<h3 style="color: white; text-align: center;">What is your Average Family Income?  <br></h3>
+
+
+    <!-- <input type="text" name="Family Income" placeholder="Family Income" required="required" /><br> -->
+    <center>
+    <div class="radio-container">
+    <input type="radio" id="1 - 3 LPA" name="Family Income" value="0">
+    <label for="1 - 3 LPA">1 - 3 LPA</label>
+    <input type="radio" id="3 - 5 LPA" name="Family Income" value="1">
+    <label for="3 - 5 LPA">3 - 5 LPA</label>
+    <input type="radio" id="5 - 8 LPA" name="Family Income" value="2">
+    <label for="5 - 8 LPA">5 - 8 LPA</label>
+    <input type="radio" id="Above 8 LPA" name="Family Income" value="3">
+    <label for="Above 8 LPA">Above 8 LPA</label>
+</div> </center>
+
+<h3 style="color: white; text-align: center;">What is your Average Daily Screen Time? (In Hrs) <br></h3>
+
+
+    <input type="text" name="Daily Screen Time" placeholder="daily screen time (in hrs)" required="required" /><br>
+
+
+    <!-- <input type="text" name="Chronic Illness" placeholder="Chronic Illness" required="required" /><br> -->
+    <h3 style="color: white; text-align: center;">Do you have any Chronic Illness? <br></h3>
+
+ 
+    <center>
+    <div class="radio-container">
+        <input type="radio" id="Yes3" name="Chronic Illness" value="1">
+          <label for="Yes3">Yes</label>
+        
+            
+        
+        <input type="radio" id="No3" name="Chronic Illness" value="0">
+        <label for="No3">No</label><br>
+        </div>
+    </center>
+        
+
+<h3 style="color: white; text-align: center;">How many Close Friends do you have? <br></h3>
+
+    <input type="text" name="Close Friends"  placeholder="number of close friends (for example: 5)" required="required" /><br>
+
+        <button type="submit" class="btn btn-primary btn-block btn-large" >Predict</button>
+    </form>
+
+   <br>
+   <br>
+{{prediction_text}}
+
+</body>
+</html>
